@@ -21,6 +21,8 @@ var Protocol = function(id) {
 	if (!(this instanceof Protocol)) return new Protocol(id);
 	Cable.call(this);
 
+	var self = this;
+
 	this.id = id;
 	this.globbing = false; // used by hms - here to help v8
 

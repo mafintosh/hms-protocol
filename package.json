@@ -5,5 +5,11 @@
   "repository": "git://github.com/mafintosh/hms-protocol.git",
   "dependencies": {
     "cable": "~1.3.0"
+  },
+  "devDependencies": {
+    "tap": "~0.4.8"
+  },
+  "scripts": {
+  	"test": "tap test.js"
   }
 }

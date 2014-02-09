@@ -4,6 +4,8 @@ The protocol stream that hms uses to communicate between servers and clients
 
 	npm install hms-protocol
 
+[![Build Status](https://travis-ci.org/mafintosh/hms-protocol.png)](https://travis-ci.org/mafintosh/hms-protocol)
+
 This is mostly only useful for [hms](https://github.com/mafintosh/hms.git)
 
 ## Usage

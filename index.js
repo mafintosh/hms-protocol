@@ -56,7 +56,6 @@ var Protocol = function(id) {
 			case 13: return emit('stderr', id, origin, payload);
 			case 14: return emit('spawn', id, origin, JSON.parse(payload.toString()));
 			case 15: return emit('exit', id, origin, JSON.parse(payload.toString()));
-			case 16: return emit('deploy', id, JSON.parse(payload.toString()));
 		}
 
 		cb(new Error('Command is not supported'));

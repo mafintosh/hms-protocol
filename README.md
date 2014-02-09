@@ -63,7 +63,7 @@ The service message can contain the following
 	start: 'node .',
 	build: 'npm install',
 	docks: [
-		'the-dock-to-run-at'
+		'dock-id-to-run-at'
 	],
 	env: {
 		FOO: 'bar'

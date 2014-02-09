@@ -66,10 +66,6 @@ var Protocol = function(id) {
 
 util.inherits(Protocol, Cable);
 
-Protocol.prototype.ping = function(cb) {
-	this.ping(cb);
-};
-
 Protocol.prototype.get = function(id, cb) {
 	this._send(0, id, null, parse(cb));
 };

@@ -24,7 +24,9 @@ var Protocol = function(id) {
 	var self = this;
 
 	this.id = id;
-	this.globbing = false; // used by hms - here to help v8
+
+	this._amSubscribing = {};
+	this._peerSubscribing = {};
 
 	this.on('message', function(message, cb) {
 		var opcode = message[0];
@@ -52,8 +54,15 @@ var Protocol = function(id) {
 			case 7:  return emit('stop', id, cb);
 			case 8:  return emit('restart', id, cb);
 			case 9:  return emit('sync', id, JSON.parse(payload.toString()), cb);
-			case 10: return emit('subscribe', id, cb);
-			case 11: return emit('unsubscribe', id, cb);
+
+			case 10:
+			self._peerSubscribing[id] = true;
+			return emit('subscribe', id, cb);
+
+			case 11:
+			delete self._peerSubscribing[id];
+			return emit('unsubscribe', id, cb);
+
 			case 12: return emit('stdout', id, origin, payload);
 			case 13: return emit('stderr', id, origin, payload);
 			case 14: return emit('spawn', id, origin, JSON.parse(payload.toString()));
@@ -65,6 +74,14 @@ var Protocol = function(id) {
 };
 
 util.inherits(Protocol, Cable);
+
+Protocol.prototype.amSubscribing = function(id) {
+	return this._amSubscribing[id] || this._amSubscribing['*'];
+};
+
+Protocol.prototype.peerSubscribing = function(id) {
+	return this._peerSubscribing[id] || this._peerSubscribing['*'];
+};
 
 Protocol.prototype.get = function(id, cb) {
 	this._send(0, id, null, parse(cb));
@@ -107,10 +124,16 @@ Protocol.prototype.sync = function(id, service, cb) {
 };
 
 Protocol.prototype.subscribe = function(id, cb) {
+	if (typeof id === 'function') return this.subscribe(null, id);
+	if (!id) id = '*';
+	this._amSubscribing[id] = true;
 	this._send(10, id, null, cb);
 };
 
 Protocol.prototype.unsubscribe = function(id, cb) {
+	if (typeof id === 'function') return this.unsubscribe(null, id);
+	if (!id) id = '*';
+	delete this._amSubscribing[id];
 	this._send(11, id, null, cb);
 };
 

@@ -51,12 +51,14 @@ The following messages are supported over the protocol
 * `p.stop(id, cb)` stop a service
 * `p.restart(id, cb)` restart a service
 * `p.sync(id, service, cb)` sync service state
-* `p.subscribe(id, cb)` subscribe to service events.
-* `p.unsubscribe(id, cb)` unsubscribe from service events.
+* `p.subscribe([id], cb)` subscribe to service events. omit the `id` to subscribe to `*`
+* `p.unsubscribe([id], cb)` unsubscribe from service events. omit the `id` to unsubscribe `*`
 * `p.stdout(id, origin, buffer)` send a stdout event
 * `p.stderr(id, origin, buffer)` send a stderr event
 * `p.spawn(id, origin, pid)` send a process spawn event
 * `p.exit(id, origin, code)` send a process exit event
+* `p.amSubscribing(id)` returns true if you are subscribing to `id`
+* `p.peerSubscribing(id)` returns true if the peer is subscribing to `id`
 
 The service message can contain the following
 

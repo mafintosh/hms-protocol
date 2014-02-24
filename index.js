@@ -153,10 +153,6 @@ Protocol.prototype.exit = function(id, origin, code) {
 	this._send(15, id+'@'+origin, JSON.stringify(code));
 };
 
-Protocol.prototype.destroy = function() {
-	this._cable.destroy();
-};
-
 Protocol.prototype._send = function(opcode, id, payload, cb) {
 	if (!payload) payload = empty;
 	if (!Buffer.isBuffer(payload)) payload = new Buffer(payload);

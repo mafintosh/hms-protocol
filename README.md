@@ -40,6 +40,7 @@ net.createServer(function(stream) {
 
 The following messages are supported over the protocol
 
+* `p.handshake(opts, cb)` send a protocol handhake
 * `p.ping(cb)` ping to see if remote is alive
 * `p.get(id, cb)` get information about a service
 * `p.add(id, service, cb)` add a new service.

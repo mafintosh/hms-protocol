@@ -19,6 +19,23 @@ test('get', function(t) {
 	p.pipe(p);
 });
 
+test('handshake', function(t) {
+	t.plan(3);
+	var p = protocol();
+
+	p.on('handshake', function(handshake, cb) {
+		t.same(handshake.type, 'dock');
+		t.same(handshake.priority, 1);
+		cb();
+	});
+
+	p.handshake({type:'dock', priority:1}, function(err) {
+		t.ok(!err);
+	});
+
+	p.pipe(p);
+});
+
 test('add', function(t) {
 	t.plan(3);
 	var p = protocol();

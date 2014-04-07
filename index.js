@@ -67,6 +67,8 @@ var Protocol = function(id) {
 			case 13: return emit('stderr', id, origin, payload);
 			case 14: return emit('spawn', id, origin, JSON.parse(payload.toString()));
 			case 15: return emit('exit', id, origin, JSON.parse(payload.toString()));
+
+			case 16: return emit('handshake', JSON.parse(payload.toString()), cb);
 		}
 
 		cb(new Error('Command is not supported'));
@@ -151,6 +153,10 @@ Protocol.prototype.spawn = function(id, origin, pid) {
 
 Protocol.prototype.exit = function(id, origin, code) {
 	this._send(15, id+'@'+origin, JSON.stringify(code));
+};
+
+Protocol.prototype.handshake = function(opts, cb) {
+	this._send(16, '', JSON.stringify(opts), cb);
 };
 
 Protocol.prototype._send = function(opcode, id, payload, cb) {

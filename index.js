@@ -90,7 +90,7 @@ Protocol.prototype.peerSubscribing = function(id) {
 
 Protocol.prototype.handshake = function(opts, cb) {
 	opts.protocol = Protocol.version;
-	this._send(0, '', JSON.stringify(opts), cb);
+	this._send(0, '', JSON.stringify(opts), parse(cb));
 };
 
 Protocol.prototype.add = function(id, service, cb) {

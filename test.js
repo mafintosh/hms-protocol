@@ -20,17 +20,18 @@ test('get', function(t) {
 });
 
 test('handshake', function(t) {
-	t.plan(3);
+	t.plan(4);
 	var p = protocol();
 
 	p.on('handshake', function(handshake, cb) {
 		t.same(handshake.type, 'dock');
 		t.same(handshake.priority, 1);
-		cb();
+		cb(null, {type:'terminal'});
 	});
 
-	p.handshake({type:'dock', priority:1}, function(err) {
+	p.handshake({type:'dock', priority:1}, function(err, handshake) {
 		t.ok(!err);
+		t.same(handshake.type, 'terminal');
 	});
 
 	p.pipe(p);

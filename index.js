@@ -77,6 +77,8 @@ var Protocol = function(id) {
 
 util.inherits(Protocol, Cable);
 
+Protocol.version = 1;
+
 Protocol.prototype.amSubscribing = function(id) {
 	return this._amSubscribing[id] || this._amSubscribing['*'];
 };

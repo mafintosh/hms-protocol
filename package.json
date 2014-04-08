@@ -1,7 +1,7 @@
 {
   "name": "hms-protocol",
   "description": "The protocol stream that hms uses to communicate between servers and clients",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "repository": "git://github.com/mafintosh/hms-protocol.git",
   "dependencies": {
     "cable": "~1.3.0"

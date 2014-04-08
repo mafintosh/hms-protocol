@@ -44,7 +44,7 @@ var Protocol = function(id) {
 		if (i > -1) id = id.slice(0, i);
 
 		switch (opcode) {
-			case 0: return emit('handshake', JSON.parse(payload.toString()), cb);
+			case 0: return emit('handshake', JSON.parse(payload.toString()), stringify(cb));
 
 			case 1:  return emit('add', id, JSON.parse(payload.toString()), cb);
 			case 2:  return emit('update', id, JSON.parse(payload.toString()), cb);

@@ -46,32 +46,30 @@ var Protocol = function (id) {
     switch (opcode) {
       case 0: return emit('handshake', JSON.parse(payload.toString()), stringify(cb))
 
-      case 1:  return emit('add', id, JSON.parse(payload.toString()), cb)
-      case 2:  return emit('update', id, JSON.parse(payload.toString()), cb)
-      case 3:  return emit('remove', id, cb)
-      case 4:  return emit('list', stringify(cb))
-      case 5:  return emit('ps', stringify(cb))
-      case 6:  return emit('start', id, cb)
-      case 7:  return emit('stop', id, cb)
-      case 8:  return emit('restart', id, cb)
-      case 9:  return emit('sync', id, JSON.parse(payload.toString()), cb)
+      case 1: return emit('add', id, JSON.parse(payload.toString()), cb)
+      case 2: return emit('update', id, JSON.parse(payload.toString()), cb)
+      case 3: return emit('remove', id, cb)
+      case 4: return emit('list', stringify(cb))
+      case 5: return emit('ps', stringify(cb))
+      case 6: return emit('start', id, cb)
+      case 7: return emit('stop', id, cb)
+      case 8: return emit('restart', id, cb)
+      case 9: return emit('sync', id, JSON.parse(payload.toString()), cb)
 
       case 10:
         self._peerSubscribing[id] = true
-      return emit('subscribe', id, cb)
+        return emit('subscribe', id, cb)
 
       case 11:
         delete self._peerSubscribing[id]
-      return emit('unsubscribe', id, cb)
+        return emit('unsubscribe', id, cb)
 
       case 12: return emit('stdout', id, origin, payload)
       case 13: return emit('stderr', id, origin, payload)
       case 14: return emit('spawn', id, origin, JSON.parse(payload.toString()))
       case 15: return emit('exit', id, origin, JSON.parse(payload.toString()))
 
-      case 16:  return emit('get', id, stringify(cb))
-
-      default:
+      case 16: return emit('get', id, stringify(cb))
     }
 
     cb(new Error('Command is not supported'))
